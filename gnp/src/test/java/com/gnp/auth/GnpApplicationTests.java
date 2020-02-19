@@ -1,10 +1,10 @@
-package com.example.demo;
+package com.gnp.auth;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class TimelyApplicationTests {
+class GnpApplicationTests {
 
 	@Test
 	void contextLoads() {

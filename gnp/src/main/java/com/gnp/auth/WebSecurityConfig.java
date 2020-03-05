@@ -34,6 +34,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
       .and()
       .csrf().disable()
       .authorizeRequests().antMatchers(HttpMethod.POST, SIGN_UP_URL).permitAll()
+      .antMatchers(HttpMethod.GET, SALES_URL).permitAll()
+      .antMatchers(HttpMethod.GET, ESTIMATE_URL).permitAll()
       .anyRequest().authenticated()
       .and()
       .addFilter(new JWTAuthenticationFilter(authenticationManager()))

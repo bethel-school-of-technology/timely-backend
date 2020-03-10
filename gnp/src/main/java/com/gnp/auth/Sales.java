@@ -11,7 +11,6 @@ public class Sales {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private int companyID;
 	private Date date;
 	private BigDecimal dailySales;
 	private String weekDay;
@@ -21,12 +20,6 @@ public class Sales {
 	}
 	public void setId(Integer id) {
 		this.id = id;
-	}
-	int getCompanyID() {
-		return companyID;
-	}
-	public void setCompanyID(int companyID) {
-		this.companyID = companyID;
 	}
 	public BigDecimal getDailySales() {
 		return dailySales;

@@ -12,7 +12,7 @@ public class Sales {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private Date date;
-	private BigDecimal dailySales;
+	private double dailySales;
 	private String weekDay;
 	
 	public Integer getId() {
@@ -21,10 +21,10 @@ public class Sales {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public BigDecimal getDailySales() {
+	public double getDailySales() {
 		return dailySales;
 	}
-	public void setDailySales(BigDecimal dailySales) {
+	public void setDailySales(double dailySales) {
 		this.dailySales = dailySales;
 	}
 	public Date getDate() {

@@ -13,67 +13,50 @@ import org.springframework.web.bind.annotation.RestController;
 public class SalesController {
 	List<Sales> recentSales = new ArrayList<>();
 	List<String> estimatedSales = new ArrayList<>();
-	Sales e;
-	int counter = 0;
-	
+
 	// instance of dao gives access to methods to communicate with the database
 	@Autowired
 	SalesRepository dao;
-	
+
 	// method called by getEstimatedSales method
 	public BigDecimal getAverage(BigDecimal total) {
 		BigDecimal average = total.divide(new BigDecimal(4), 2, RoundingMode.HALF_UP);
 		return average;
 	}
-	
-	// returns an array of estimated sales for the week based on past month's sales
+
 	@GetMapping("/estimate")
 	public List<String> getEstimatedSales() {
+		List<Sales> foundSales = dao.findFirst28ByOrderByDateDesc();
+		List<Sales> newArray = new ArrayList<>();
 		BigDecimal total = new BigDecimal("0.00");
-		int dayCounter = 1;
+		int counter = 0;
 		int dailySales = 0;
-		List<Sales> foundSales = dao.findAll(); // found Sales = entire database
-		List<Sales> dayList = new ArrayList<>(); // dayList = last 4 days
-		for (int x = foundSales.size() - dayCounter; x > 0; x -= 7) {
-			if (counter == 0) {
-				x = foundSales.size() - dayCounter;
+		int nextWeekday = 0;
+		for (int x = 0; nextWeekday < 7; x += 7) {
+			if (counter == 0 && !estimatedSales.isEmpty()) {
+				x = 0 + nextWeekday;
 			}
-			e = foundSales.get(x);
-			dayList.add(e);
-			total = total.add(dayList.get(dailySales).getDailySales());
+			newArray.add(foundSales.get(x));
+			total = total.add(newArray.get(dailySales).getDailySales());
 			dailySales++;
 			counter++;
 			if (counter == 4) {
 				estimatedSales.add(String.valueOf(getAverage(total)));
 				counter = 0;
-				if (dayCounter <= 6 && counter == 0) {
-					++dayCounter;
-					total = new BigDecimal("0.00");
-					continue;
-				}
-				break;
+				total = new BigDecimal("0.00");
+				nextWeekday++;
 			}
 		}
 		return estimatedSales;
-
 	}
-	
-	// returns sales data from the past 28 days 
+
+	// returns sales data from the past 28 days
 	@GetMapping("/sales")
 	public List<Sales> getPastSales() {
-		List<Sales> foundSales = dao.findAll();
-		List<Sales> dayList = new ArrayList<>();
-		for (int i = foundSales.size() - 1; i >= 0; i--) {
-			e = foundSales.get(i);
-			dayList.add(e);
-			if (dayList.size() == 28) {
-				recentSales.addAll(dayList);
-			}
-		}
-		return recentSales;
-
+		List<Sales> foundSales = dao.findFirst28ByOrderByDateDesc();
+		return foundSales;
 	}
-	
+
 	// saves past sales data to database
 	@PostMapping("/sales")
 	public void sales(@RequestBody Sales newSales) {

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class SalesController {
 	List<Sales> recentSales = new ArrayList<>();
-	List<String> estimatedSales = new ArrayList<>();
+	List<Double> estimatedSales = new ArrayList<>();
 
 	// instance of dao gives access to methods to communicate with the database
 	@Autowired
@@ -25,7 +25,7 @@ public class SalesController {
 	}
 
 	@GetMapping("/estimate")
-	public List<String> getEstimatedSales() {
+	public List<Double> getEstimatedSales() {
 		List<Sales> foundSales = dao.findFirst28ByOrderByDateDesc();
 		List<Sales> newArray = new ArrayList<>();
 		BigDecimal total = new BigDecimal("0.00");
@@ -41,7 +41,7 @@ public class SalesController {
 			dailySales++;
 			counter++;
 			if (counter == 4) {
-				estimatedSales.add(String.valueOf(getAverage(total)));
+				estimatedSales.add(Double.valueOf(String.valueOf(getAverage(total))));
 				counter = 0;
 				total = new BigDecimal("0.00");
 				nextWeekday++;

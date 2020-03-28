@@ -1,4 +1,4 @@
-package com.gnp.auth;
+package services;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,6 +7,9 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import models.User;
+import repos.UserRepository;
 
 @Service
 public class MySQLUserDetailsService implements UserDetailsService {

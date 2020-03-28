@@ -1,7 +1,10 @@
-package com.gnp.auth;
+package controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import models.User;
+import services.MySQLUserDetailsService;
 
 @RestController
 @RequestMapping("/api/user")

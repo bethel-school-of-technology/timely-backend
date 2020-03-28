@@ -1,4 +1,4 @@
-package com.gnp.auth;
+package secuJwt;
 
 import com.auth0.jwt.JWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -27,8 +27,8 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
   @Override
   public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse res) throws AuthenticationException {
     try {
-      com.gnp.auth.User creds = new ObjectMapper()
-        .readValue(req.getInputStream(), com.gnp.auth.User.class);
+      models.User creds = new ObjectMapper()
+        .readValue(req.getInputStream(), models.User.class);
 
       return authenticationManager.authenticate(
         new UsernamePasswordAuthenticationToken(

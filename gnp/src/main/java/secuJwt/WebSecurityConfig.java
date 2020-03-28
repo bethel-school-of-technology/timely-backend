@@ -1,4 +1,4 @@
-package com.gnp.auth;
+package secuJwt;
 
 import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +11,9 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.cors.*;
+
+import services.MySQLUserDetailsService;
+
 import static com.gnp.auth.AuthConstants.*;
 
 @EnableWebSecurity

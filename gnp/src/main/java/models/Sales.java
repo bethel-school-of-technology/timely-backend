@@ -1,4 +1,4 @@
-package com.gnp.auth;
+package models;
 
 import java.math.BigDecimal;
 import java.sql.Date;

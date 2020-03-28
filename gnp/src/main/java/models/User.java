@@ -1,4 +1,4 @@
-package com.gnp.auth;
+package models;
 
 import javax.persistence.*;
 

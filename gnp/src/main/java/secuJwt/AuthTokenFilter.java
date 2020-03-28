@@ -20,10 +20,10 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import services.UserDetailsServiceImpl;
 
 public class AuthTokenFilter extends OncePerRequestFilter {
-	
+
 	@Autowired
 	private JwtUtils jwtUtils;
-	
+
 	@Autowired
 	private UserDetailsServiceImpl userDetailsService;
 
@@ -41,23 +41,23 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 				UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
 						userDetails, null, userDetails.getAuthorities());
 				authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-				// Below SecurityContextHolder is used to store details of the currently authenticated user
+				// Below SecurityContextHolder is used to store details of the currently
+				// authenticated user
 				SecurityContextHolder.getContext().setAuthentication(authentication);
 			}
 		} catch (Exception e) {
 			logger.error("Cannot set user authentication: {}", e);
 		}
-			filterChain.doFilter(request, response);
-		}
-
-		private String parseJwt(HttpServletRequest request) {
-			String headerAuth = request.getHeader("Authorization");
-
-			if (StringUtils.hasText(headerAuth) && headerAuth.startsWith("Bearer ")) {
-				return headerAuth.substring(7, headerAuth.length());
-			}
-
-			return null;
-		}
+		filterChain.doFilter(request, response);
 	}
 
+	private String parseJwt(HttpServletRequest request) {
+		String headerAuth = request.getHeader("Authorization");
+
+		if (StringUtils.hasText(headerAuth) && headerAuth.startsWith("Bearer ")) {
+			return headerAuth.substring(7, headerAuth.length());
+		}
+
+		return null;
+	}
+}

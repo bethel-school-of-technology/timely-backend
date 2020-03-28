@@ -13,7 +13,7 @@ import models.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class UserDetailsImpl implements UserDetails {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	private Long id;
@@ -21,20 +21,20 @@ public class UserDetailsImpl implements UserDetails {
 	private String username;
 
 	private String email;
-	
+
 	private String firstName;
 
 	private String lastName;
 
 	private String company;
-	
+
 	@JsonIgnore
 	private String password;
 
 	private Collection<? extends GrantedAuthority> authorities;
 
-	public UserDetailsImpl(Long id, String username, String email, String password, String firstName, String lastName, String company,
-			Collection<? extends GrantedAuthority> authorities) {
+	public UserDetailsImpl(Long id, String username, String email, String password, String firstName, String lastName,
+			String company, Collection<? extends GrantedAuthority> authorities) {
 		this.id = id;
 		this.username = username;
 		this.email = email;
@@ -45,33 +45,24 @@ public class UserDetailsImpl implements UserDetails {
 		this.company = company;
 	}
 
-	
-	//This converts set <Role> into list<GrantedAuthority>
+	// This converts set <Role> into list<GrantedAuthority>
 	public static UserDetailsImpl build(User user) {
 		List<GrantedAuthority> authorities = user.getRoles().stream()
-				.map(role -> new SimpleGrantedAuthority(role.getName().name()))
-				.collect(Collectors.toList());
-		
-		return new UserDetailsImpl(
-				user.getId(), 
-				user.getUsername(), 
-				user.getEmail(),
-				user.getPassword(), 
-				user.getFirstName(),
-				user.getLastName(),
-				user.getCompany(),
-				authorities);
+				.map(role -> new SimpleGrantedAuthority(role.getName().name())).collect(Collectors.toList());
+
+		return new UserDetailsImpl(user.getId(), user.getUsername(), user.getEmail(), user.getPassword(),
+				user.getFirstName(), user.getLastName(), user.getCompany(), authorities);
 	}
-	
+
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return authorities;
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
-	
+
 	public String getEmail() {
 		return email;
 	}
@@ -85,7 +76,7 @@ public class UserDetailsImpl implements UserDetails {
 	public String getUsername() {
 		return username;
 	}
-	
+
 	@Override
 	public boolean isAccountNonExpired() {
 		return true;
@@ -105,7 +96,7 @@ public class UserDetailsImpl implements UserDetails {
 	public boolean isEnabled() {
 		return true;
 	}
-	
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o)
@@ -115,5 +106,5 @@ public class UserDetailsImpl implements UserDetails {
 		UserDetailsImpl user = (UserDetailsImpl) o;
 		return Objects.equals(id, user.id);
 	}
-	
+
 }

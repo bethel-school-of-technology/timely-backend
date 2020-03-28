@@ -14,9 +14,9 @@ import repos.UserRepository;
 public class UserDetailsServiceImpl implements UserDetailsService {
 	@Autowired
 	UserRepository userRepository;
-	
-	
-	//This below overrides the userdetails method and finds user based on userRepository which then builds a userDetails Object
+
+	// This below overrides the userdetails method and finds user based on
+	// userRepository which then builds a userDetails Object
 	@Override
 	@Transactional
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -26,6 +26,4 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		return UserDetailsImpl.build(user);
 	}
 
-
-	
 }

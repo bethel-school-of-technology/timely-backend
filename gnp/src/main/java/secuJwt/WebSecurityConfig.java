@@ -22,9 +22,6 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import services.UserDetailsServiceImpl;
 
 
-import com.bezkoder.springjwt.security.jwt.AuthEntryPointJwt;
-
-
 
 @Configuration
 @EnableWebSecurity

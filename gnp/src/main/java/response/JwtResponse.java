@@ -1,4 +1,4 @@
-package com.gnp.auth;
+package response;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.gnp.auth;
+package models;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -36,7 +36,7 @@ public class User {
 	@NotBlank
 	@Size(max = 120)
 	private String password;
-	
+
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles = new HashSet<>();
@@ -49,7 +49,7 @@ public class User {
 		this.email = email;
 		this.password = password;
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -105,6 +105,7 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
 	public Set<Role> getRoles() {
 		return roles;
 	}

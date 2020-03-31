@@ -1,4 +1,4 @@
-package com.gnp.auth;
+package controllers;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -14,7 +14,7 @@ public class TestController {
 	public String allAccess() {
 		return "Public Content.";
 	}
-	
+
 	@GetMapping("/user")
 	@PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
 	public String userAccess() {

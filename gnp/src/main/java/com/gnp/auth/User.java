@@ -41,6 +41,15 @@ public class User {
 	@JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles = new HashSet<>();
 
+	public User() {
+	}
+
+	public User(String username, String email, String password) {
+		this.username = username;
+		this.email = email;
+		this.password = password;
+	}
+	
 	public Long getId() {
 		return id;
 	}
@@ -95,5 +104,12 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
 	}
 }

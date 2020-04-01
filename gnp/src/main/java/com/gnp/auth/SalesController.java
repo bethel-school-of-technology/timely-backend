@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/test")
 public class SalesController {
 	List<Sales> recentSales = new ArrayList<>();
 	List<Double> estimatedSales = new ArrayList<>();

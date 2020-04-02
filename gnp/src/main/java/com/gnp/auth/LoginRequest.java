@@ -1,4 +1,4 @@
-package request;
+package com.gnp.auth;
 
 import javax.validation.constraints.NotBlank;
 

@@ -1,4 +1,4 @@
-package com.gnp.auth;
+package com.gnp.auth.controllers;
 
 import java.math.*;
 import java.util.ArrayList;
@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.gnp.auth.models.Sales;
+import com.gnp.auth.repository.SalesRepository;
 
 @RestController
 public class SalesController {

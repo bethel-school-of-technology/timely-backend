@@ -1,4 +1,4 @@
-package com.gnp.auth;
+package com.gnp.auth.models;
 
 import java.util.HashSet;
 import java.util.Set;

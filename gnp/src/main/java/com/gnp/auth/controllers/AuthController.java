@@ -1,4 +1,4 @@
-package com.gnp.auth;
+package com.gnp.auth.controllers;
 
 import java.util.HashSet;
 import java.util.List;
@@ -19,6 +19,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.gnp.auth.models.ERole;
+import com.gnp.auth.models.Role;
+import com.gnp.auth.models.User;
+import com.gnp.auth.payload.request.LoginRequest;
+import com.gnp.auth.payload.request.SignupRequest;
+import com.gnp.auth.payload.response.JwtResponse;
+import com.gnp.auth.payload.response.MessageResponse;
+import com.gnp.auth.repository.RoleRepository;
+import com.gnp.auth.repository.UserRepository;
+import com.gnp.auth.security.jwt.JwtUtils;
+import com.gnp.auth.security.services.UserDetailsImpl;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController

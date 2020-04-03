@@ -1,4 +1,4 @@
-package com.gnp.auth;
+package com.gnp.auth.security.jwt;
 
 	import java.util.Date;
 	import org.slf4j.Logger;
@@ -6,6 +6,8 @@ package com.gnp.auth;
 	import org.springframework.beans.factory.annotation.Value;
 	import org.springframework.security.core.Authentication;
 	import org.springframework.stereotype.Component;
+
+import com.gnp.auth.security.services.UserDetailsImpl;
 
 import io.jsonwebtoken.*;
 

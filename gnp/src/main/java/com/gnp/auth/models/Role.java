@@ -1,4 +1,4 @@
-package com.gnp.auth;
+package com.gnp.auth.models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

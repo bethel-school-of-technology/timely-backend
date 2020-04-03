@@ -1,4 +1,4 @@
-package com.gnp.auth;
+package com.gnp.auth.security.jwt;
 
 import java.io.IOException;
 

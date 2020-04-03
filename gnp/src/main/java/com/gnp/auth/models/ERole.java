@@ -1,4 +1,4 @@
-package com.gnp.auth;
+package com.gnp.auth.models;
 
 public enum ERole {
 	ROLE_USER,

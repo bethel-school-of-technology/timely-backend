@@ -1,5 +1,9 @@
 package com.gnp.auth.controllers;
 
+/*
+ This file handles the sign-up/register and login/sign-in requests.
+*/
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -53,7 +57,9 @@ public class AuthController {
 
 	@PostMapping("/signin")
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
-
+		
+		//The code below makes a call to the LoginRequest, which will then use to authenticate a login account.
+		
 		Authentication authentication = authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
@@ -93,7 +99,11 @@ public class AuthController {
 
 		Set<String> strRoles = signUpRequest.getRole();
 		Set<Role> roles = new HashSet<>();
-
+		/*
+		 * The code below grabs the roles from the 'Erole.java' 
+		 * and declares one of the roles to the new successful register request.
+		 * 
+		 */
 		if (strRoles == null) {
 			Role userRole = roleRepository.findByName(ERole.ROLE_USER)
 					.orElseThrow(() -> new RuntimeException("Error: Role is not found."));

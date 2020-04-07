@@ -27,7 +27,11 @@ public class SalesController {
 		BigDecimal average = total.divide(new BigDecimal(4), 2, RoundingMode.HALF_UP);
 		return average;
 	}
-
+	/*
+	 * 
+	 * The code below is what calculates the averages.
+	 * 
+	 */
 	@GetMapping("/estimate")
 	public List<Double> getEstimatedSales() {
 		List<Sales> foundSales = dao.findFirst28ByOrderByDateDesc();

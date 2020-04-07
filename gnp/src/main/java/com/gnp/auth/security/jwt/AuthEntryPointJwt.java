@@ -12,16 +12,25 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
 
+
 @Component
 public class AuthEntryPointJwt implements AuthenticationEntryPoint {
 
 	private static final Logger logger = LoggerFactory.getLogger(AuthEntryPointJwt.class);
 
+	
+	/*
+	 * 
+	 * The code below thows an error if the password that is tied to the user account is false.
+	 * 
+	 */
+	
+	
 	@Override
 	public void commence(HttpServletRequest request, HttpServletResponse response,
 			AuthenticationException authException) throws IOException, ServletException {
 		logger.error("Unauthorized error: {}", authException.getMessage());
-		response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Error: Unauthorized");
+		response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Error: Wrong Username or Password.");
 	}
 
 }

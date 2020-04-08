@@ -4,6 +4,8 @@ import java.math.*;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,7 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.gnp.auth.models.Sales;
 import com.gnp.auth.repository.SalesRepository;
 
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
+@RequestMapping("/api")
 public class SalesController {
 	List<Sales> recentSales = new ArrayList<>();
 	List<Double> estimatedSales = new ArrayList<>();
@@ -28,11 +32,12 @@ public class SalesController {
 		return average;
 	}
 	/*
-	 * 
-	 * The code below is what calculates the averages.
-	 * 
+
+	 * Code below calculates the average
+
 	 */
 	@GetMapping("/estimate")
+	@PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
 	public List<Double> getEstimatedSales() {
 		List<Sales> foundSales = dao.findFirst28ByOrderByDateDesc();
 		List<Sales> newArray = new ArrayList<>();
@@ -60,13 +65,14 @@ public class SalesController {
 
 	// returns sales data from the past 28 days
 	@GetMapping("/sales")
+	@PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
 	public List<Sales> getPastSales() {
 		List<Sales> foundSales = dao.findFirst28ByOrderByDateDesc();
 		return foundSales;
 	}
-
-	// saves past sales data to database
+	// saves past sales to database
 	@PostMapping("/sales")
+	@PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
 	public void sales(@RequestBody Sales newSales) {
 		dao.save(newSales);
 	}

@@ -35,7 +35,7 @@ import com.gnp.auth.repository.RoleRepository;
 import com.gnp.auth.repository.UserRepository;
 import com.gnp.auth.security.jwt.JwtUtils;
 import com.gnp.auth.security.services.UserDetailsImpl;
-
+//This file handles the sign-up/register and login/sign-in requests
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/auth")
@@ -57,9 +57,9 @@ public class AuthController {
 
 	@PostMapping("/signin")
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
-		
+
 		//The code below makes a call to the LoginRequest, which will then use to authenticate a login account.
-		
+
 		Authentication authentication = authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
@@ -85,7 +85,7 @@ public class AuthController {
 					.badRequest()
 					.body(new MessageResponse("Error: Username is already taken!"));
 		}
-
+		//code throws error if the email is already in database
 		if (userRepository.existsByEmail(signUpRequest.getEmail())) {
 			return ResponseEntity
 					.badRequest()
@@ -100,9 +100,11 @@ public class AuthController {
 		Set<String> strRoles = signUpRequest.getRole();
 		Set<Role> roles = new HashSet<>();
 		/*
-		 * The code below grabs the roles from the 'Erole.java' 
-		 * and declares one of the roles to the new successful register request.
-		 * 
+
+		  The code below grabs the roles from the erole.java and declares
+		   one of the roles to the new successful register request. 
+		   (By default it assigns new users the 'user' role)
+
 		 */
 		if (strRoles == null) {
 			Role userRole = roleRepository.findByName(ERole.ROLE_USER)

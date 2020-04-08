@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.gnp.auth.models.ERole;
 import com.gnp.auth.models.Role;
 
-//This is a Repository
+//repository communicates the gathered data to the database
 
 @Repository
 public interface RoleRepository extends JpaRepository<Role, Long> {

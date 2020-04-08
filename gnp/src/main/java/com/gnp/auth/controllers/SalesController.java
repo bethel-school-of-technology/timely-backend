@@ -32,7 +32,9 @@ public class SalesController {
 		return average;
 	}
 	/*
+
 	 * Code below calculates the average
+
 	 */
 	@GetMapping("/estimate")
 	@PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")

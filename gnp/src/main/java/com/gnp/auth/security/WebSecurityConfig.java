@@ -24,6 +24,10 @@ import com.gnp.auth.security.services.UserDetailsServiceImpl;
 		// securedEnabled = true,
 		// jsr250Enabled = true,
 		prePostEnabled = true)
+/*
+ * WebSecurityConfigurerAdapter provides HttpSecurity configurations
+ * to configure cors, csrf, session management, and rules for protected resources.
+ */
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	UserDetailsServiceImpl userDetailsService;
@@ -46,12 +50,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	public AuthenticationManager authenticationManagerBean() throws Exception {
 		return super.authenticationManagerBean();
 	}
-
+	//code below encripts the password.
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-
+	/*
+	  We override the configure(HttpSecurity http) method from WebSecurityConfigurerAdapter interface
+		that tells Spring Security how we configure CORS and CSRF,
+		when we want to require all users to be authenticated or not,
+		which filter (AuthTokenFilter) and when we want it to work
+		(filter before UsernamePasswordAuthenticationFilter),
+		which Exception Handler is chosen (AuthEntryPointJwt).
+	 */
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.cors().and().csrf().disable().exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()

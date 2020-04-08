@@ -31,7 +31,9 @@ public class SalesController {
 		BigDecimal average = total.divide(new BigDecimal(4), 2, RoundingMode.HALF_UP);
 		return average;
 	}
-
+	/*
+	 * Code below calculates the average
+	 */
 	@GetMapping("/estimate")
 	@PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
 	public List<Double> getEstimatedSales() {
@@ -66,7 +68,7 @@ public class SalesController {
 		List<Sales> foundSales = dao.findFirst28ByOrderByDateDesc();
 		return foundSales;
 	}
-	
+	// saves past sales to database
 	@PostMapping("/sales")
 	@PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
 	public void sales(@RequestBody Sales newSales) {

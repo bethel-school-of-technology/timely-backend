@@ -1,7 +1,7 @@
 package com.gnp.auth.payload.request;
 
 import javax.validation.constraints.NotBlank;
-
+//This file gets a login request from the usernamePasswordAuthenticationToken
 public class LoginRequest {
 	@NotBlank
 	private String username;

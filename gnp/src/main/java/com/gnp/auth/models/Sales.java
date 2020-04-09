@@ -5,7 +5,7 @@ import java.sql.Date;
 import javax.persistence.*;
 
 @Entity
-@Table(name="sales")
+@Table(name="sales", uniqueConstraints = { @UniqueConstraint(columnNames = "date") } )
 public class Sales {
 	
 	@Id

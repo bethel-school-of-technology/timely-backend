@@ -21,36 +21,41 @@ import com.gnp.auth.repository.SalesRepository;
 @RestController
 @RequestMapping("/api")
 public class SalesController {
-	List<Sales> recentSales = new ArrayList<>();
-	List<Double> estimatedSales = new ArrayList<>();
-
 	// instance of dao gives access to methods to communicate with the database
 	@Autowired
 	SalesRepository dao;
 
-	// method called by getEstimatedSales method
+	// averaging method called by getEstimatedSales method
 	public BigDecimal getAverage(BigDecimal total) {
 		BigDecimal average = total.divide(new BigDecimal(4), 2, RoundingMode.HALF_UP);
 		return average;
 	}
 	/*
-	 * Code below calculates the average
+	 * Code below calculates the average sales for each day of the week, based on the last 28 days of sales
+	 * using BigDecimal datatype to accurately calculate currency amounts
+	 * but returning calculated amounts as a double to better communicate with React
 	 */
 	@GetMapping("/estimate")
 	@PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
 	public List<Double> getEstimatedSales() {
-		List<Sales> foundSales = dao.findFirst28ByOrderByDateDesc();
-		List<Sales> newArray = new ArrayList<>();
+		// empty array list which will be given the average of the most recent sales every time method is called
+		List<Double> estimatedSales = new ArrayList<>();
+		//28 most recent sales
+		List<Sales> recentSales = dao.findFirst28ByOrderByDateDesc();
+		List<Sales> reorderedArray = new ArrayList<>();
+		//total will eventually receive the total amount of the 4 most recent sales for a particular day of the week before it gets passed to the averaging method
 		BigDecimal total = new BigDecimal("0.00");
+		//counter keeps track of how many days we've looked at, limiting them to 4 (since we're looking at them based on day of the week
 		int counter = 0;
 		int dailySales = 0;
 		int nextWeekday = 0;
+		//foundSales is ordered Sun-Sat, we loop through it by 7, adding every seventh entry to newArray
 		for (int x = 0; nextWeekday < 7; x += 7) {
 			if (counter == 0 && !estimatedSales.isEmpty()) {
 				x = 0 + nextWeekday;
 			}
-			newArray.add(foundSales.get(x));
-			total = total.add(newArray.get(dailySales).getDailySales());
+			reorderedArray.add(recentSales.get(x));
+			total = total.add(reorderedArray.get(dailySales).getDailySales());
 			dailySales++;
 			counter++;
 			if (counter == 4) {
@@ -63,12 +68,12 @@ public class SalesController {
 		return estimatedSales;
 	}
 
-	// returns sales data from the past 28 days
+	// returns most recent past sales in an array list
 	@GetMapping("/sales")
 	@PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
 	public List<Sales> getPastSales() {
-		List<Sales> foundSales = dao.findFirst28ByOrderByDateDesc();
-		return foundSales;
+		List<Sales> recentSales = dao.findFirst28ByOrderByDateDesc();
+		return recentSales;
 	}
 	// saves past sales to database
 	@PostMapping("/sales")
